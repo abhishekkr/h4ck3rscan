@@ -1,0 +1,9 @@
+[ h4ck3r-S-can ]
+now it's 'hackers_can.hacker_scan'
+
++ it's a netowrk utility which is really simple to allow even a beginner to scan particular machines for user-desired anomalies
+
++ developed over Java
+
++ would take user desired anomalies in xml,yml formats
+
