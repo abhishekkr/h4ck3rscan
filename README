@@ -1,9 +1,10 @@
 [ h4ck3r-S-can ]
 now it's 'hackers_can.hacker_scan'
 
-+ it's a netowrk utility which is really simple to allow even a beginner to scan particular machines for user-desired anomalies
++ it's a network utility which is really simple to allow even a beginner to scan particular machines for user-desired anomalies
+  have an architectural concept decided for it, give it some time :)
 
-+ developed over Java
++ developed in Ruby .....moved from Java to Ruby, don't ask why..... just because I was mad at Oracle
 
 + would take user desired anomalies in xml,yml formats
 
