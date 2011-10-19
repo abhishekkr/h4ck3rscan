@@ -2,7 +2,7 @@
 
 require 'socket'  
 
-class PortScanner
+class SocketHandler
   def scan_tcp_port(host, port)
     begin 
       sok = TCPSocket.new(host, port.to_i)

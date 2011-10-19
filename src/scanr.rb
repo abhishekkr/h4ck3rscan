@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join File.dirname(__FILE__), "portscanner.rb") 
+require File.expand_path(File.join File.dirname(__FILE__), "sockethandler.rb") 
 
 class Scanr
   def initialize(host_port_msg)
     @csvdata=host_port_msg
-    @portscanner = PortScanner.new
+    @sockethandler = SocketHandler.new
   end
 
   def scan_result(status, host, port, mesg=nil)
@@ -26,9 +26,9 @@ class Scanr
         else
           host_port.each_key do |mesg|
             if host_port[mesg].nil?
-              scan_result (@portscanner.scan_tcp_port host, port), host, port, mesg
+              scan_result (@sockethandler.scan_tcp_port host, port), host, port, mesg
             else
-              scan_result (@portscanner.scan_by_mesg host, port, mesg, host_port[mesg]), host, port
+              scan_result (@sockethandler.scan_by_mesg host, port, mesg, host_port[mesg]), host, port
             end
           end
         end
