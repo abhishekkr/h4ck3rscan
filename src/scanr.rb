@@ -1,38 +1,31 @@
 #!/usr/bin/env ruby
 
 require File.expand_path(File.join File.dirname(__FILE__), "sockethandler.rb") 
+require File.expand_path(File.join File.dirname(__FILE__), "mesghandler.rb") 
 
 class Scanr
-  def initialize(host_port_msg)
-    @csvdata=host_port_msg
-    @sockethandler = SocketHandler.new
+  def initialize(host, port, mesg=nil, param=nil)
+    @host=host
+    @port=port
+    @mesg=mesg
+    @param=param
+    @sockethandler = SocketHandler.new(host, port)
   end
 
-  def scan_result(status, host, port, mesg=nil)
-    if status
-      print mesg + " <<< " unless mesg.nil?
-      puts port + " is OPEN at " + host
-    else
-      puts port + " was Closed at " + host
-    end
+  def show_scan_result(status)
+    puts status
   end
 
   def scanner
-    @csvdata.each_key do |host|
-      @csvdata[host].each_key do |port|
-        host_port=@csvdata[host][port]
-        if host_port.nil?
-          scan_host_port host, port
-        else
-          host_port.each_key do |mesg|
-            if host_port[mesg].nil?
-              scan_result (@sockethandler.scan_tcp_port host, port), host, port, mesg
-            else
-              scan_result (@sockethandler.scan_by_mesg host, port, mesg, host_port[mesg]), host, port
-            end
-          end
-        end
+    if @mesg.nil?
+      show_scan_result @sockethandler.scan_tcp_port
+    else
+      if @param.nil?
+        show_scan_result @sockethandler.scan_tcp_port + " [" + @mesg + "]"
+      else
+        show_scan_result MesgHandler.new(@mesg, @param, @sockethandler).get_status
       end
     end
   end
+
 end

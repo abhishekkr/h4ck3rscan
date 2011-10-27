@@ -3,16 +3,34 @@
 require 'socket'  
 
 class SocketHandler
-  def scan_tcp_port(host, port)
+  def initialize(host, port)
+    @host=host
+    @port=port
+  end
+
+  def scan_tcp_port(mesg=nil)
     begin 
-      sok = TCPSocket.new(host, port.to_i)
+      sok = TCPSocket.new(@host, @port.to_i)
       sok.close
-      true
+      status = "#{@port} is OPEN at #{@host}"
+      status += " <<<<< #{mesg}"  unless mesg.nil?
+      status
     rescue
-      false
+      "#{@port} was Closed at #{@host}"
     end
   end
 
-  def scan_by_mesg(host, port, mesg, mesg_data)
+  def scan_by_sending_message(mesg_data)
+    begin
+      sok = TCPSocket.new(@host, @port.to_i)
+      sok.write mesg_data
+      @sok_recvd = sok.recv(1000)
+      sok.close
+      status = "#{@port} is OPEN at #{@host}"
+      status += " <<<<< #{@sok_recvd.to_s.lines.first.strip}"  unless @sok_recvd.nil?
+      return status
+    rescue
+      return "#{@port} was Closed at #{@host}"
+    end
   end
 end

@@ -18,8 +18,7 @@ no_args
   end
 
   def h4ck3rscan
-    host_port_msg = InPut.new(@csv_file_path).get_host_port_msg
-    Scanr.new(host_port_msg).scanner
+    InPut.new(@csv_file_path).scan_csv
   end
 end
 
