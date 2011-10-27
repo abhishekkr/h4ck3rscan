@@ -2,30 +2,37 @@
 
 class MesgHandler
   def initialize(mesg, mesg_data, sockethandler)
-    self.__send__ mesg, mesg_data, sockethandler
+    begin
+      self.__send__ mesg, mesg_data, sockethandler
+    rescue
+      no_handler_for_me mesg, sockethandler 
+    end
   end
-  
+
   def get_status
     @status
+  end
+  
+  def no_handler_for_me(mesg, sockethandler)
+    @status = sockethandler.no_mesg_handler mesg
   end
   
   def exec_cmd(cmd_path, sockethandler)
     exit_code=%x{#{cmd_path} #{sockethandler.get_host} #{sockethandler.get_port}; echo $?}.split[-1]
     if status==="0"
-      status = "#{@port} is OPEN at #{@host}"
-      status += " <<<<< #{mesg}"  unless mesg.nil?
-      status
+      @status = "#{@port} is OPEN at #{@host}"
+      @status += " <<<<< #{mesg}"  unless mesg.nil?
     else
-      "#{@port} was Closed at #{@host}"
+      @status = "#{@port} was Closed at #{@host}"
     end 
   end
   
   def dump_exec_output(cmd_path, sockethandler)
-    sockethandler.scan_by_sending_message %x{#{cmd_path} #{sockethandler.get_host} #{sockethandler.get_port}}
+    @status = sockethandler.scan_by_sending_message %x{#{cmd_path} #{sockethandler.get_host} #{sockethandler.get_port}}
   end
   
   def dump_bin_file(fylname, sockethandler)
-    sockethandler.scan_by_sending_message IO.read(fylname)
+    @status = sockethandler.scan_by_sending_message IO.read(fylname)
   end
   
   def dump_txt_file(fylname, sockethandler)
@@ -35,7 +42,8 @@ class MesgHandler
   end
   
   def dump_text(txt, sockethandler)
-    sockethandler.scan_by_sending_message txt
+    txt_ = txt.split("\"")[1..-1].join.gsub("\\n","\n")
+    @status = sockethandler.scan_by_sending_message txt_
   end
   
   def http_head(get_resource, sockethandler)

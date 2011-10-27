@@ -13,7 +13,7 @@ class Scanr
   end
 
   def show_scan_result(status)
-    puts status
+    puts status 
   end
 
   def scanner
