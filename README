@@ -1,6 +1,8 @@
 [ h4ck3r-S-can ]
 now it's 'hackers_can.hacker_scan'
 
+use Ruby 1.9
+
 + it's a network utility which is really simple to allow even a beginner to scan particular machines for user-desired anomalies
   have an architectural concept decided for it, give it some time :)
 

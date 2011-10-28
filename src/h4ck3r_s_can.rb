@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require File.expand_path (File.join File.dirname(__FILE__), "scanr.rb")
-require File.expand_path (File.join File.dirname(__FILE__), "inPut.rb")
+require File.expand_path(File.join File.dirname(__FILE__), "scanr.rb")
+require File.expand_path(File.join File.dirname(__FILE__), "inPut.rb")
 
 
 class H4ck3rSCan
@@ -14,11 +14,11 @@ Syntax:
 no_args
       exit 1
     end
-    @csv_file_path = ARGV[0]
+    @in_file_path = File.expand_path ARGV[0]
   end
 
   def h4ck3rscan
-    InPut.new(@csv_file_path).scan_csv
+    InPut.new(@in_file_path).scan_csv
   end
 end
 

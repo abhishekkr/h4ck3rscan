@@ -1,5 +1,5 @@
 127.0.0.1,80,HTTP
-127.0.0.1,80,dump_txt_file,/tmp/get_http.txt
+127.0.0.1,80,dump_txt_file,sample_input/get_http.txt
 www.google.com,80,dump_txt_file,/tmp/get_http.txt
 github.com,80,dump_text,"GET / HTTP/1.1\nHost: www.github.com\n\n\n\n"
 127.0.0.1,3128,Squid_HTTP

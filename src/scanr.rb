@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join File.dirname(__FILE__), "sockethandler.rb") 
-require File.expand_path(File.join File.dirname(__FILE__), "mesghandler.rb") 
+require File.expand_path(File.join File.dirname(__FILE__), "sockethandler.rb")
+require File.expand_path(File.join File.dirname(__FILE__), "mesghandler.rb")
 
 class Scanr
   def initialize(host, port, mesg=nil, param=nil)

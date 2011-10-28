@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require File.expand_path(File.join File.dirname(__FILE__), "scanr.rb")
+
 class InPut
   def initialize(in_file_path)
     @in_file_path=in_file_path
